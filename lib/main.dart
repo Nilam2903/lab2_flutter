@@ -56,6 +56,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  void buttonClicked(){
+
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -107,10 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
-            ),Image.asset("images/algonquin.jpg",width:200, height:200),
+            ),
 
             Text('$_counter', style: Theme.of(context).textTheme.headlineMedium,
             ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Image.asset("images/algonquin.jpg",width: 200, height:200),  ),
           ],
         ),
       ),
