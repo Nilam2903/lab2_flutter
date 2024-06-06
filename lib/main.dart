@@ -1,4 +1,7 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -55,23 +58,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  void buttonClicked(){
 
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+  late TextEditingController _controller = TextEditingController();
+  String imageSource = "images/question.jpg";
   @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  void buttonClicked() {
+    setState(() {
+      if (_controller.text == 'QWERTY123') {
+        imageSource = "images/bulb.jpg";
+      }
+      else {
+        imageSource = "images/stop.jpg";
+      }
+    } );
+  }
+
+
+
+
+
+@override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -89,10 +100,48 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Center (child: Container(
+           width: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+
+                decoration: InputDecoration(
+                  hintText: "Login",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(11),
+
+
+                  )
+                ),
+              ),
+              Container(height: 11,),
+              TextField(
+                controller: _controller,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "Passsword",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(11),
+
+                    )
+                ),
+              ),
+              ElevatedButton( onPressed: buttonClicked,
+
+                  child: Text("Login") ,),
+
+                Image.asset(imageSource),
+
+
+
+
+            ],
+          )))
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
+
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -106,25 +155,29 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
 
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Image.asset("images/algonquin.jpg",width: 200, height:200),  ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+
+            //Text('$_counter', style: Theme.of(context).textTheme.headlineMedium,),
+           // ElevatedButton(
+             // onPressed: () {},
+              //child: Image.asset("images/algonquin.jpg",width: 200, height:200),  ),
+
+
+
+
+      //floatingActionButton: FloatingActionButton(
+       // onPressed: _incrementCounter,
+        //tooltip: 'Increment',
+        //child: const Icon(Icons.add),
+       //
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
+    
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
